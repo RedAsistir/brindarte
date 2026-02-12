@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrinDarte - La Única Red Solidaria Bien Argenta</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React & ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000;
+            color: #ffffff;
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        .glass-morphism {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .img-placeholder {
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+        }
+
+        /* Forzar texto blanco en inputs y selects */
+        input, select, textarea {
+            color: white !important;
+        }
+        ::placeholder {
+            color: rgba(255, 255, 255, 0.5) !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useMemo } = React;
+
+        const Navbar = ({ setView, user }) => (
+            <nav className="glass-morphism sticky top-0 z-50 px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div className="flex items-center gap-4 cursor-pointer" onClick={() => setView('home')}>
+                    <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center overflow-hidden border-2 border-white shadow-lg shadow-white/20">
+                        <img src="logo.png" alt="Logo" className="w-full h-full object-cover" />
+                    </div>
+                    <div className="flex flex-col">
+                        <h1 className="text-3xl font-bold tracking-tighter text-white">Brin<span className="text-blue-400">Darte</span></h1>
+                        <span className="text-xs text-blue-300 font-semibold italic">La Única Red Solidaria Bien Argenta</span>
+                    </div>
+                </div>
+                <div className="flex gap-8 items-center">
+                    <button onClick={() => setView('home')} className="text-white font-medium hover:text-blue-300 transition-colors">Inicio</button>
+                    <button onClick={() => setView('browse')} className="text-white font-medium hover:text-blue-300 transition-colors">Explorar</button>
+                    {user ? (
+                        <button onClick={() => setView('publish')} className="bg-white text-black px-6 py-2 rounded-full font-bold hover:bg-blue-100 transition-all">Publicar</button>
+                    ) : (
+                        <button onClick={() => setView('login')} className="border-2 border-white px-6 py-2 rounded-full font-bold text-white hover:bg-white hover:text-black transition-all">Ingresar</button>
+                    )}
+                </div>
+            </nav>
+        );
+
+        const AdBanner = ({ label }) => (
+            <div className="w-full h-32 glass-morphism my-8 flex flex-col items-center justify-center border-2 border-dashed border-white/30 rounded-xl">
+                <span className="text-xs uppercase tracking-widest text-white/60 mb-2 font-bold">Espacio Publicitario Disponible</span>
+                <p className="text-white font-bold text-lg">{label}</p>
+            </div>
+        );
+
+        const App = () => {
+            const [view, setView] = useState('home');
+            const [user, setUser] = useState(null);
+            const [searchTerm, setSearchTerm] = useState('');
+            const [selectedCategory, setSelectedCategory] = useState('Todos');
+            const [items, setItems] = useState([
+                { id: 1, title: 'Silla de Ruedas Ergonómica', category: 'Equipos Médicos', type: 'DONACIÓN', price: 0, description: 'En buen estado, para persona adulta.', author: 'Juan Perez', role: 'Donante', date: '2024-05-20' },
+                { id: 2, title: 'Paracetamol 500mg', category: 'Medicamentos', type: 'VENTA', price: 5, expiry: '2026-12-01', description: 'Caja cerrada, 20 comprimidos.', author: 'Farmacia Solidaria', role: 'Publicidad', date: '2024-05-18' }
+            ]);
+
+            const filteredItems = useMemo(() => {
+                return items.filter(item => {
+                    const matchesSearch = item.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                                         item.description.toLowerCase().includes(searchTerm.toLowerCase());
+                    const matchesCategory = selectedCategory === 'Todos' || item.category === selectedCategory;
+                    return matchesSearch && matchesCategory;
+                });
+            }, [items, searchTerm, selectedCategory]);
+
+            return (
+                <div className="min-h-screen pb-20">
+                    <Navbar setView={setView} user={user} />
+                    
+                    <main className="max-w-6xl mx-auto px-6 pt-12">
+                        {view === 'home' && (
+                            <div className="text-center py-10 flex flex-col items-center">
+                                {/* Logo Central Resaltado */}
+                                <div className="w-48 h-48 mb-8 rounded-full overflow-hidden border-4 border-white shadow-2xl shadow-white/30 animate-pulse">
+                                    <img src="logo.png" alt="Logo Grande" className="w-full h-full object-cover" />
+                                </div>
+                                
+                                <h2 className="text-6xl font-extrabold mb-6 leading-tight text-white drop-shadow-lg">
+                                    Conectando voluntades <br/><span className="text-blue-400">para sanar juntos.</span>
+                                </h2>
+                                <p className="text-xl text-white font-medium max-w-2xl mx-auto mb-10 drop-shadow-md">
+                                    BrinDarte es la plataforma autogestionada donde la solidaridad fluye sin intermediarios. Equipos médicos y medicamentos al alcance de todos.
+                                </p>
+                                
+                                <div className="flex gap-6 justify-center mb-16">
+                                    <button onClick={() => setView('browse')} className="bg-white text-black px-10 py-4 rounded-full text-xl font-black hover:scale-110 transition-transform shadow-xl">Ver Publicaciones</button>
+                                    <button onClick={() => setView('login')} className="glass-morphism px-10 py-4 rounded-full text-xl font-black text-white hover:bg-white/20 transition-colors border-2 border-white shadow-xl">Unirme a la Red</button>
+                                </div>
+
+                                <div className="p-10 glass-morphism rounded-3xl border-2 border-blue-400 text-left max-w-3xl mx-auto shadow-2xl">
+                                    <h4 className="text-3xl font-black text-blue-400 mb-6 flex items-center gap-3">
+                                        <span>💊</span> IMPORTANTE: Medicamentos de Alto Costo
+                                    </h4>
+                                    <p className="text-xl text-white font-semibold leading-relaxed">
+                                        También habilitamos un espacio para la donación de medicamentos de alto costo. Si te sobró medicación (en caja cerrada y con fecha vigente), no la tires. Alguien la está buscando desesperadamente. Ayúdanos a que llegue a las manos correctas.
+                                    </p>
+                                </div>
+                                
+                                <AdBanner label="Anuncio Destacado 1" />
+                            </div>
+                        )}
+
+                        {view === 'login' && (
+                            <div className="max-w-md mx-auto glass-morphism p-10 rounded-2xl shadow-2xl border-2 border-white/30">
+                                <h3 className="text-4xl font-black mb-8 text-center text-white">Unirse a BrinDarte</h3>
+                                <form onSubmit={(e) => {
+                                    e.preventDefault();
+                                    const formData = new FormData(e.target);
+                                    setUser({ name: formData.get('name'), role: formData.get('role') });
+                                    setView('home');
+                                }} className="space-y-6">
+                                    <div>
+                                        <label className="block text-sm font-bold text-white mb-2">Nombre Completo / Organización</label>
+                                        <input name="name" required type="text" className="w-full bg-white/10 border-2 border-white/50 rounded-xl px-4 py-3 focus:border-white focus:outline-none text-white font-bold" placeholder="Ej: Juan Pérez" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-bold text-white mb-2">Rol en la Comunidad</label>
+                                        <select name="role" className="w-full bg-black/50 border-2 border-white/50 rounded-xl px-4 py-3 focus:border-white focus:outline-none text-white font-bold">
+                                            <option value="Donante">Donante (Ofrezco ayuda)</option>
+                                            <option value="Beneficiario">Beneficiario (Busco ayuda)</option>
+                                            <option value="Logística">Logística (Transporte/Gestión)</option>
+                                            <option value="Publicidad">Publicidad (Empresas/Farmacias)</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" className="w-full bg-white text-black font-black py-4 rounded-xl hover:bg-blue-100 transition-all text-xl mt-4 shadow-lg">Registrarse</button>
+                                </form>
+                            </div>
+                        )}
+
+                        {view === 'browse' && (
+                            <div className="space-y-10">
+                                <div className="flex flex-col md:flex-row gap-6 items-center justify-between glass-morphism p-8 rounded-3xl border-2 border-white/30">
+                                    <div className="relative w-full md:w-96">
+                                        <input 
+                                            type="text" 
+                                            placeholder="Buscar equipos o medicamentos..." 
+                                            className="w-full bg-white/10 border-2 border-white/50 rounded-full px-12 py-4 focus:border-white focus:outline-none text-white font-bold"
+                                            onChange={(e) => setSearchTerm(e.target.value)}
+                                        />
+                                        <span className="absolute left-5 top-4.5 text-xl">🔍</span>
+                                    </div>
+                                    <div className="flex gap-3 overflow-x-auto w-full md:w-auto pb-2">
+                                        {['Todos', 'Equipos Médicos', 'Medicamentos', 'Servicios'].map(cat => (
+                                            <button 
+                                                key={cat}
+                                                onClick={() => setSelectedCategory(cat)}
+                                                className={`px-6 py-3 rounded-full font-black whitespace-nowrap transition-all border-2 ${selectedCategory === cat ? 'bg-white text-black border-white' : 'bg-transparent text-white border-white/50 hover:border-white'}`}
+                                            >
+                                                {cat}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                                    {filteredItems.map(item => (
+                                        <div key={item.id} className="glass-morphism rounded-3xl overflow-hidden hover:scale-105 transition-all flex flex-col border-2 border-white/20 shadow-xl">
+                                            <div className="h-56 img-placeholder relative">
+                                                <span className="text-white font-black text-xl uppercase tracking-widest opacity-50">BrinDarte</span>
+                                                <div className="absolute top-4 left-4">
+                                                    <span className={`px-4 py-2 rounded-full text-sm font-black shadow-lg ${item.type === 'DONACIÓN' ? 'bg-green-600 text-white' : item.type === 'ALQUILER' ? 'bg-blue-600 text-white' : 'bg-yellow-600 text-white'}`}>
+                                                        {item.type}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div className="p-8 flex-1 flex flex-col">
+                                                <div className="flex justify-between items-start mb-4">
+                                                    <h4 className="text-2xl font-black text-white">{item.title}</h4>
+                                                    <span className="text-xl font-black text-blue-400">{item.price > 0 ? `$${item.price}` : 'GRATIS'}</span>
+                                                </div>
+                                                <p className="text-white font-medium text-lg mb-6 line-clamp-3">{item.description}</p>
+                                                
+                                                <div className="mt-auto space-y-4">
+                                                    <div className="flex flex-col gap-1 text-sm font-bold text-white/80">
+                                                        <span>👤 {item.author} ({item.role})</span>
+                                                        <span>📅 Publicado: {item.date}</span>
+                                                    </div>
+                                                    {item.expiry && (
+                                                        <div className="text-sm font-black text-red-400 bg-red-400/10 p-2 rounded-lg text-center border border-red-400">
+                                                            VENCE: {item.expiry}
+                                                        </div>
+                                                    )}
+                                                    <button 
+                                                        onClick={() => {
+                                                            const message = encodeURIComponent(`Hola, estoy interesado en su publicación: ${item.title} en BrinDarte.`);
+                                                            window.open(`https://wa.me/?text=${message}`, '_blank');
+                                                        }}
+                                                        className="w-full bg-white text-black py-4 rounded-2xl font-black text-lg hover:bg-blue-100 transition-all shadow-lg flex items-center justify-center gap-2"
+                                                    >
+                                                        Contactar por WhatsApp
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                                
+                                <AdBanner label="Espacio Publicitario 2 - Farmacias Locales" />
+                                <AdBanner label="Espacio Publicitario 3 - Servicios de Salud" />
+                            </div>
+                        )}
+
+                        {view === 'publish' && (
+                            <div className="max-w-2xl mx-auto glass-morphism p-10 rounded-3xl shadow-2xl border-2 border-white/30">
+                                <h3 className="text-4xl font-black mb-8 text-white">Crear Publicación</h3>
+                                <form onSubmit={(e) => {
+                                    e.preventDefault();
+                                    const formData = new FormData(e.target);
+                                    const desc = formData.get('description');
+                                    const urlRegex = /(https?:\/\/|www\.|[a-z0-9]+\.(com|net|org|edu|gov|io|info|biz))/gi;
+                                    if (urlRegex.test(desc)) { alert('Por seguridad, no se permiten enlaces externos.'); return; }
+
+                                    const newItem = {
+                                        id: Date.now(),
+                                        title: formData.get('title'),
+                                        category: formData.get('category'),
+                                        type: formData.get('type'),
+                                        price: formData.get('price') || 0,
+                                        expiry: formData.get('expiry'),
+                                        description: desc,
+                                        author: user.name,
+                                        role: user.role,
+                                        date: new Date().toISOString().split('T')[0]
+                                    };
+                                    setItems([newItem, ...items]);
+                                    setView('browse');
+                                }} className="space-y-8">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                        <div>
+                                            <label className="block text-sm font-bold text-white mb-2">Título</label>
+                                            <input name="title" required type="text" className="w-full bg-white/10 border-2 border-white/50 rounded-xl px-4 py-3 focus:border-white focus:outline-none text-white font-bold" placeholder="Ej: Muletas" />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-bold text-white mb-2">Categoría</label>
+                                            <select name="category" onChange={(e) => {
+                                                document.getElementById('exp-box').style.display = e.target.value === 'Medicamentos' ? 'block' : 'none';
+                                                document.getElementById('pri-box').style.display = e.target.value === 'Equipos Médicos' ? 'block' : 'none';
+                                            }} className="w-full bg-black/50 border-2 border-white/50 rounded-xl px-4 py-3 text-white font-bold">
+                                                <option value="Equipos Médicos">Equipos Médicos</option>
+                                                <option value="Medicamentos">Medicamentos</option>
+                                                <option value="Servicios">Servicios de Salud</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                        <div>
+                                            <label className="block text-sm font-bold text-white mb-2">Modalidad</label>
+                                            <select name="type" className="w-full bg-black/50 border-2 border-white/50 rounded-xl px-4 py-3 text-white font-bold">
+                                                <option value="DONACIÓN">DONACIÓN (Gratis)</option>
+                                                <option value="ALQUILER">ALQUILER</option>
+                                                <option value="VENTA">VENTA SOCIAL</option>
+                                            </select>
+                                        </div>
+                                        <div id="pri-box">
+                                            <label className="block text-sm font-bold text-white mb-2">Precio Sugerido</label>
+                                            <input name="price" type="number" className="w-full bg-white/10 border-2 border-white/50 rounded-xl px-4 py-3 text-white font-bold" placeholder="0.00" />
+                                        </div>
+                                        <div id="exp-box" style={{display: 'none'}}>
+                                            <label className="block text-sm font-bold text-red-400 mb-2">Fecha de Vencimiento</label>
+                                            <input name="expiry" type="date" min={new Date().toISOString().split('T')[0]} className="w-full bg-white/10 border-2 border-red-400/50 rounded-xl px-4 py-3 text-white font-bold" />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-bold text-white mb-2">Descripción (Sin enlaces)</label>
+                                        <textarea name="description" required rows="4" onPaste={(e) => { e.preventDefault(); alert('Función pegar deshabilitada.'); }} className="w-full bg-white/10 border-2 border-white/50 rounded-xl px-4 py-3 text-white font-bold" placeholder="Detalles del producto..."></textarea>
+                                    </div>
+
+                                    <div className="flex gap-6">
+                                        <button type="button" onClick={() => setView('browse')} className="flex-1 border-2 border-white text-white font-black py-4 rounded-xl hover:bg-white/10 transition-all">Cancelar</button>
+                                        <button type="submit" className="flex-1 bg-white text-black font-black py-4 rounded-xl hover:bg-blue-100 transition-all shadow-lg">Publicar Ahora</button>
+                                    </div>
+                                </form>
+                            </div>
+                        )}
+                    </main>
+
+                    <footer className="mt-20 border-t-2 border-white/20 py-12 text-center">
+                        <p className="text-white font-black text-xl mb-2 tracking-widest">BRINDARTE</p>
+                        <p className="text-white/60 font-bold">La Única Red Solidaria Bien Argenta &copy; 2024</p>
+                    </footer>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

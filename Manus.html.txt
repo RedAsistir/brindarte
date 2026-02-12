@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="es"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>BrinDarte - Manus</title> <script src=""></script> <style> body { background-color: #121212; color: #d1d1d1; font-family: sans-serif; } .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); } .input-dark { background: #1e1e1e; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 12px; width: 100%; } .no-paste { user-select: none; } </style> </head> <body class="min-h-screen"> <header class="p-6 glass sticky top-0 z-50 flex flex-col md:flex-row items-center justify-between gap-4"> <div class="flex items-center gap-4"> <div class="w-16 h-16 bg-gray-800 rounded-full border border-gray-600 flex items-center justify-center overflow-hidden"> <span class="text-[10px] text-gray-500 text-center p-1">LOGO BRINDARTE</span> </div> <div> <h1 class="text-3xl font-light text-white">Brin<span class="font-bold">Darte</span></h1> <p class="text-xs uppercase tracking-widest text-blue-400">La Primera Red Social Bien Argenta</p> </div> </div> <nav class="flex gap-6 text-sm"> <a href="#" class="hover:text-blue-400">Explorar</a> <a href="#" class="text-blue-500 border-b border-blue-500">Publicar</a> <a href="#" class="hover:text-blue-400 italic font-bold">Mis DMs</a> </nav> </header>
+<main class="container mx-auto max-w-3xl p-6 mt-10"> <div class="glass p-8 rounded-3xl shadow-2xl"> <h2 class="text-2xl font-semibold mb-6 text-white text-center italic">¿Qué vas a brindar hoy?</h2>
+
+<form id="mainForm" class="space-y-6"> <div> <label class="block text-sm font-bold mb-2">Categoría</label> <select id="categoria" class="input-dark outline-none"> <option value="equipos">Equipos Médicos (Venta/Alquiler/Donación)</option> <option value="medicamentos">Medicamentos (SOLO DONACIÓN)</option> </select> </div>
+
+<div id="seccionVencimiento" class="hidden"> <label class="block text-sm font-bold text-red-400 mb-2 italic">Fecha de Vencimiento (Obligatorio)</label> <input type="date" id="fechaVenc" class="input-dark"> </div>
+
+<div> <label class="block text-sm font-bold mb-2">Descripción</label> <textarea id="descripcion" rows="5" class="input-dark no-paste" placeholder="Sin links externos..."></textarea> <p class="text-[10px] text-gray-500 mt-2 italic">* Contacto solo por DM interno por seguridad.</p> </div>
+
+<button type="submit" class="w-full bg-white text-black font-black py-4 rounded-xl hover:bg-blue-400 hover:text-white transition-all shadow-xl"> SUBIR PUBLICACIÓN </button> </form> </div> </main>
+
+<script> const cat = document.getElementById('categoria'); const secVenc = document.getElementById('seccionVencimiento'); const desc = document.getElementById('descripcion');
+
+cat.addEventListener('change', (e) => { if (e.target.value === 'medicamentos') { secVenc.style.display = 'block'; } else { secVenc.style.display = 'none'; } });
+
+desc.addEventListener('paste', (e) => { e.preventDefault(); alert('Por seguridad, escribí la descripción manualmente.'); }); </script>
+
+</body> </html>
