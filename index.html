@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BrinDarte - Red Solidaria</title>
+    <title>BrinDarte - La Primera Red Solidaria Bien Argenta</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -14,7 +14,6 @@
             font-family: 'Inter', sans-serif;
             background-color: #000;
             color: #ffffff;
-            /* NOMBRES EXACTOS DE TUS ARCHIVOS SUBIDOS */
             background-image: url('fondo.png.jpg');
             background-size: cover;
             background-attachment: fixed;
@@ -24,6 +23,9 @@
             background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .text-glow {
+            text-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
         }
     </style>
 </head>
@@ -39,21 +41,21 @@
 
             return (
                 <div className="min-h-screen flex flex-col">
-                    {/* NAVBAR */}
+                    {/* NAVBAR CON LEMA */}
                     <nav className="glass-morphism sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
                         <div className="flex items-center gap-4 cursor-pointer" onClick={() => setView('home')}>
                             <div className="w-12 h-12 bg-white/10 rounded-full overflow-hidden border border-white/50">
                                 <img src="logo.brindarte.png.jpg" alt="Logo" className="w-full h-full object-cover" />
                             </div>
-                            <h1 className="text-2xl font-bold tracking-tighter text-white">Brin<span className="text-blue-400">Darte</span></h1>
+                            <div>
+                                <h1 className="text-2xl font-bold tracking-tighter text-white leading-none">Brin<span className="text-blue-400 font-black">Darte</span></h1>
+                                <p className="text-[10px] text-blue-300 font-bold tracking-widest uppercase mt-1">La Primera Red Solidaria Bien Argenta</p>
+                            </div>
                         </div>
                         <div className="flex gap-6 items-center">
                             <button onClick={() => setView('home')} className="hover:text-blue-300 font-bold uppercase text-xs">Inicio</button>
                             {user ? (
-                                <>
-                                    <button onClick={() => setView('publish')} className="bg-white text-black px-4 py-2 rounded-full font-bold text-xs uppercase">Publicar</button>
-                                    <button onClick={() => window.location.href='mensajes.html'} className="text-blue-400 font-bold italic text-sm">Mis DMs</button>
-                                </>
+                                <button onClick={() => window.location.href='mensajes.html'} className="text-blue-400 font-bold italic text-sm">Mis DMs</button>
                             ) : (
                                 <button onClick={() => setView('login')} className="border border-white px-4 py-1 rounded-full text-xs font-bold uppercase">Ingresar</button>
                             )}
@@ -63,48 +65,21 @@
                     <main className="max-w-4xl mx-auto px-6 pt-12 flex-1 w-full">
                         {view === 'home' && (
                             <div className="text-center py-10">
-                                <div className="w-36 h-36 mx-auto mb-8 rounded-full overflow-hidden border-2 border-white shadow-2xl">
+                                <div className="w-36 h-36 mx-auto mb-6 rounded-full overflow-hidden border-4 border-white shadow-2xl">
                                     <img src="logo.brindarte.png.jpg" alt="Logo" className="w-full h-full object-cover" />
                                 </div>
-                                <h2 className="text-5xl font-black mb-8 italic drop-shadow-2xl">Brindamos lo que el otro necesita.</h2>
+                                <h2 className="text-5xl font-black mb-2 italic tracking-tighter">Brindamos lo que el otro necesita.</h2>
+                                <p className="text-blue-400 font-bold text-xl mb-10 tracking-wide drop-shadow-md italic">"La Primera Red Solidaria Bien Argenta"</p>
                                 
                                 <div className="bg-blue-900/40 border border-blue-400 p-6 rounded-3xl mb-10 text-left shadow-lg">
                                     <h3 className="text-xl font-bold text-blue-300 mb-2">💊 Sector: Medicamentos de Alto Costo</h3>
-                                    <p className="text-sm text-blue-100 font-medium leading-relaxed italic">
-                                        Espacio habilitado para facilitar el contacto entre personas que disponen de tratamientos complejos y quienes los requieren con urgencia. 
-                                        La red se basa en la gratuidad absoluta.
+                                    <p className="text-sm text-blue-100 leading-relaxed italic">
+                                        Espacio para facilitar el contacto entre personas que disponen de tratamientos complejos y quienes los requieren con urgencia. 
+                                        Donación 100% gratuita.
                                     </p>
                                 </div>
 
                                 <button onClick={() => setView('browse')} className="bg-white text-black px-12 py-4 rounded-full font-black text-xl hover:bg-blue-400 transition-all shadow-xl">EXPLORAR RED</button>
-                            </div>
-                        )}
-
-                        {view === 'publish' && (
-                            <div className="glass-morphism p-8 rounded-3xl border border-white/30 max-w-xl mx-auto">
-                                <h3 className="text-2xl font-black mb-4 italic text-blue-400 tracking-tighter uppercase">¿Qué vas a brindar?</h3>
-                                
-                                <div className="bg-red-900/20 border border-red-500/50 p-4 rounded-xl mb-6 text-[10px] text-red-200 uppercase font-bold tracking-tight">
-                                    ⚠️ IMPORTANTE - DONACIÓN DE MEDICAMENTOS:
-                                    <ul className="list-disc ml-4 mt-2 space-y-1">
-                                        <li>Controlá la fecha de vencimiento.</li>
-                                        <li>Prohibida la venta o intercambio por dinero.</li>
-                                        <li>La entrega es responsabilidad de las partes.</li>
-                                        <li>Se sugiere pedir receta médica para validar la necesidad.</li>
-                                    </ul>
-                                </div>
-
-                                <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); setView('browse'); }}>
-                                    <div>
-                                        <label className="block text-[10px] font-black mb-2 uppercase text-gray-500 tracking-widest">Insumo o Medicamento</label>
-                                        <input className="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-400" placeholder="Ej: Amoxicilina, Silla de ruedas..." required />
-                                    </div>
-                                    <div>
-                                        <label className="block text-[10px] font-black mb-2 uppercase text-gray-500 tracking-widest">Descripción y Estado</label>
-                                        <textarea rows="4" className="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-400" placeholder="Detalles, zona de entrega, vencimiento..." required></textarea>
-                                    </div>
-                                    <button type="submit" className="w-full bg-white text-black font-black py-4 rounded-2xl hover:bg-blue-400 transition-all uppercase tracking-tighter text-lg">Subir a la Red</button>
-                                </form>
                             </div>
                         )}
 
@@ -113,18 +88,18 @@
                                 <div className="glass-morphism p-8 rounded-3xl border border-white/10 shadow-xl">
                                     <div className="flex justify-between items-start mb-4">
                                         <span className="text-[10px] bg-blue-600 px-2 py-1 rounded font-black tracking-tighter">ALTO COSTO</span>
-                                        <span className="text-[10px] text-gray-500 font-bold uppercase">Vence: 2026</span>
+                                        <span className="text-[10px] text-gray-500 font-bold uppercase italic">La Red Argenta</span>
                                     </div>
                                     <h4 className="text-2xl font-black text-white italic mb-2 tracking-tighter">Medicación Oncológica</h4>
-                                    <p className="text-sm text-gray-400 mb-6 italic leading-relaxed">"Caja cerrada, conservada según protocolo. Se entrega únicamente con receta."</p>
-                                    <button onClick={() => window.location.href='mensajes.html'} className="w-full bg-blue-600 text-white py-4 rounded-2xl font-black hover:bg-blue-500 transition-all">📩 CONTACTAR POR MD</button>
+                                    <p className="text-sm text-gray-400 mb-6 italic leading-relaxed">"Caja cerrada. Se entrega únicamente con receta en mano."</p>
+                                    <button onClick={() => window.location.href='mensajes.html'} className="w-full bg-blue-600 text-white py-4 rounded-2xl font-black hover:bg-blue-500 transition-all shadow-lg">📩 ENVIAR MD</button>
                                 </div>
                             </div>
                         )}
 
                         {view === 'login' && (
                             <div className="max-w-xs mx-auto glass-morphism p-10 rounded-3xl text-center shadow-2xl">
-                                <h3 className="text-2xl font-black mb-6 italic tracking-tighter uppercase">Unirme</h3>
+                                <h3 className="text-2xl font-black mb-6 italic tracking-tighter uppercase">Unirme a la Red</h3>
                                 <form onSubmit={(e) => { e.preventDefault(); setUser({name: 'Usuario'}); setView('home'); }} className="space-y-4">
                                     <input className="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3 focus:outline-none" placeholder="Tu apodo" required />
                                     <button className="w-full bg-white text-black font-black py-4 rounded-xl uppercase tracking-widest">Entrar</button>
@@ -136,8 +111,9 @@
                     {/* FOOTER AVISO LEGAL */}
                     <footer className="glass-morphism mt-12 p-8 text-[9px] text-gray-500 leading-tight border-t border-white/5">
                         <div className="max-w-4xl mx-auto uppercase tracking-tighter">
-                            <p className="font-black text-gray-400 mb-2 underline">Aviso Legal y Responsabilidad:</p>
-                            <p>BrinDarte es un nexo solidario. No somos farmacia ni entidad sanitaria. La donación de medicamentos es responsabilidad de los usuarios. Prohibida la venta. Se recomienda supervisión profesional en todo tratamiento.</p>
+                            <p className="font-black text-gray-400 mb-2 underline tracking-widest">Aviso Legal y Responsabilidad:</p>
+                            <p className="mb-2 italic">BrinDarte - La Primera Red Solidaria Bien Argenta</p>
+                            <p>BrinDarte es un nexo solidario. No somos farmacia ni entidad sanitaria. La donación de medicamentos es responsabilidad de los usuarios. Prohibida la venta.</p>
                         </div>
                     </footer>
                 </div>
