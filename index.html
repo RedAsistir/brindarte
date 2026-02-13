@@ -19,15 +19,12 @@
         }
         .glass { background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.15); }
         
-        /* EFECTO LATIDO Y BRILLO PARA EL LOGO */
         @keyframes heartbeat {
             0% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(255,255,255,0.3)); }
             50% { transform: scale(1.05); filter: drop-shadow(0 0 20px rgba(96, 165, 250, 0.8)); }
             100% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(255,255,255,0.3)); }
         }
-        .logo-heartbeat {
-            animation: heartbeat 2s infinite ease-in-out;
-        }
+        .logo-heartbeat { animation: heartbeat 2s infinite ease-in-out; }
     </style>
 </head>
 <body>
@@ -48,122 +45,142 @@
                         <div className="flex items-center gap-2 cursor-pointer" onClick={goHome}>
                             <img src="logo.jpg" className="w-10 h-10 rounded-full border border-white/50 object-cover" />
                             <div>
-                                <h1 className="font-bold text-xl leading-none italic">Brin<span className="text-blue-400">Darte</span></h1>
+                                <h1 className="font-bold text-xl leading-none italic font-black">Brin<span className="text-blue-400">Darte</span></h1>
                                 <p className="text-[8px] uppercase tracking-widest text-blue-300 font-bold">La Primera Red Solidaria Bien Argenta</p>
                             </div>
                         </div>
                         <div className="flex gap-4 text-[10px] font-bold uppercase">
-                            <button onClick={goHome} className="hover:text-blue-400">Inicio</button>
+                            <button onClick={goHome} className="hover:text-blue-400 font-black">Inicio</button>
                             {user ? (
-                                <button onClick={() => setView('login')} className="bg-white text-black px-3 py-1 rounded-full uppercase">Mi Perfil</button>
+                                <button onClick={() => setView('login')} className="bg-white text-black px-3 py-1 rounded-full font-black">Mi Perfil</button>
                             ) : (
-                                <button onClick={() => setView('login')} className="border border-white px-3 py-1 rounded-full uppercase">Ingresar</button>
+                                <button onClick={() => setView('login')} className="border border-white px-3 py-1 rounded-full font-black">Ingresar</button>
                             )}
                         </div>
                     </nav>
 
-                    <main className="flex-1 max-w-4xl mx-auto p-6 w-full">
+                    <main className="flex-1 max-w-6xl mx-auto p-6 w-full">
                         {/* BANNER PATROCINIO SUPERIOR */}
-                        <div className="bg-blue-900/60 p-3 rounded-xl mb-8 text-center border border-blue-400">
-                            <p className="text-[9px] uppercase font-black tracking-widest text-blue-200">Espacio para Patrocinio Oficial</p>
+                        <div className="bg-blue-900/60 p-2 rounded-xl mb-8 text-center border border-blue-400">
+                            <p className="text-[9px] uppercase font-black tracking-widest text-blue-200 font-bold">Espacio para Patrocinio Oficial</p>
                         </div>
 
                         {view === 'home' && (
-                            <div className="text-center py-4 animate-in fade-in duration-700">
-                                {/* LOGO CON LATIDO */}
-                                <div className="relative inline-block mb-6">
-                                    <img src="logo.jpg" className="w-32 h-32 rounded-full border-4 border-white shadow-2xl object-cover logo-heartbeat" />
+                            <div className="animate-in fade-in duration-700">
+                                
+                                {/* SECCIÓN CENTRAL: TEXTO IZQ - LOGO - TEXTO DER */}
+                                <div className="flex flex-col md:flex-row items-center justify-center gap-8 mb-10">
+                                    
+                                    {/* TEXTO IZQUIERDA: PROPÓSITO */}
+                                    <div className="md:w-1/4 text-center md:text-right">
+                                        <p className="text-[11px] leading-relaxed text-gray-200 italic font-medium">
+                                            Facilitamos el acceso a equipos médicos para todos, una plataforma solidaria que conecta a personas que necesitan equipos médicos con quienes pueden proveerlos mediante donación, alquiler o venta a bajo costo.
+                                        </p>
+                                    </div>
+
+                                    {/* LOGO CENTRAL LATIENDO */}
+                                    <div className="relative inline-block shrink-0">
+                                        <img src="logo.jpg" className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white shadow-2xl object-cover logo-heartbeat" />
+                                    </div>
+
+                                    {/* TEXTO DERECHA: AVISO LEGAL */}
+                                    <div className="md:w-1/4 text-center md:text-left">
+                                        <p className="text-[10px] leading-relaxed text-red-200 font-bold uppercase tracking-tighter">
+                                            Aviso Legal Medicamentos: La donación de fármacos es gratuita y bajo receta médica. BrinDarte no suministra, solo enlaza usuarios. Prohibida la venta de medicamentos en esta red.
+                                        </p>
+                                    </div>
                                 </div>
                                 
-                                <h2 className="text-4xl md:text-5xl font-black italic mb-2 tracking-tighter">Brindamos lo que el otro necesita.</h2>
-                                <p className="text-blue-400 font-bold text-lg mb-10 italic">"La Primera Red Solidaria Bien Argenta"</p>
+                                <div className="text-center">
+                                    <h2 className="text-4xl md:text-6xl font-black italic mb-2 tracking-tighter">Brindamos lo que el otro necesita.</h2>
+                                    <p className="text-blue-400 font-bold text-xl mb-10 italic">"La Primera Red Solidaria Bien Argenta"</p>
+                                </div>
                                 
                                 {/* GRILLA DE BOTONES */}
-                                <div className="grid md:grid-cols-3 gap-4 text-left mb-12">
-                                    {/* MEDICAMENTOS */}
+                                <div className="grid md:grid-cols-3 gap-4 text-left mb-12 max-w-4xl mx-auto font-black uppercase italic">
                                     <button onClick={() => setView('browse')} className="glass p-5 rounded-3xl border-blue-500 border-2 hover:bg-blue-900/20 transition-all">
-                                        <h3 className="text-blue-300 font-black mb-1 uppercase text-[11px] italic">💊 Medicamentos</h3>
-                                        <p className="text-[10px] text-blue-100 font-medium">Tratamientos Complejos y Oncológicos.</p>
+                                        <h3 className="text-blue-300 mb-1 text-[11px]">💊 Medicamentos</h3>
+                                        <p className="text-[9px] text-blue-100 normal-case not-italic font-medium">Tratamientos Oncológicos.</p>
                                     </button>
 
-                                    {/* INSUMOS (NUEVO) */}
                                     <button onClick={() => setView('browse-insumos')} className="glass p-5 rounded-3xl border-purple-500 border-2 hover:bg-purple-900/20 transition-all">
-                                        <h3 className="text-purple-300 font-black mb-1 uppercase text-[11px] italic">♿ Aparatología</h3>
-                                        <p className="text-[10px] text-purple-100 font-medium">Camas, Sillas de Ruedas, Muletas e Insumos.</p>
+                                        <h3 className="text-purple-300 mb-1 text-[11px]">♿ Aparatología</h3>
+                                        <p className="text-[9px] text-purple-100 normal-case not-italic font-medium">Camas, Sillas y Muletas.</p>
                                     </button>
 
-                                    {/* LOGISTICA */}
                                     <button onClick={() => setView('logistica')} className="glass p-5 rounded-3xl border-green-500 border-2 hover:bg-green-900/20 transition-all">
-                                        <h3 className="text-green-300 font-black mb-1 uppercase text-[11px] italic">🚚 Logística</h3>
-                                        <p className="text-[10px] text-green-100 font-medium">Guía de traslados y gauchadas solidarias.</p>
+                                        <h3 className="text-green-300 mb-1 text-[11px]">🚚 Logística</h3>
+                                        <p className="text-[9px] text-green-100 normal-case not-italic font-medium">Traslados y Gauchadas.</p>
                                     </button>
                                 </div>
                                 
-                                <button onClick={() => setView('browse')} className="bg-white text-black px-12 py-4 rounded-full font-black text-xl hover:bg-blue-400 transition-all uppercase">Explorar Red</button>
+                                <div className="text-center">
+                                    <button onClick={() => setView('browse')} className="bg-white text-black px-12 py-4 rounded-full font-black text-xl hover:bg-blue-400 transition-all uppercase shadow-2xl">Explorar Red</button>
+                                </div>
                             </div>
                         )}
 
-                        {/* VISTA: APARATOLOGÍA (INSUMOS) */}
+                        {/* VISTA: APARATOLOGÍA */}
                         {view === 'browse-insumos' && (
-                            <div className="animate-in fade-in duration-500">
+                            <div className="animate-in fade-in duration-500 max-w-4xl mx-auto">
                                 <h4 className="text-2xl font-black mb-6 italic uppercase text-purple-400">Insumos y Aparatos Médicos</h4>
                                 <div className="glass p-6 rounded-3xl border border-white/10 mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
                                     <div>
                                         <span className="text-[10px] bg-purple-600 px-2 py-0.5 rounded font-black uppercase">Préstamo / Donación</span>
-                                        <h5 className="font-bold text-lg mt-1 italic">Silla de Ruedas Motorizada</h5>
-                                        <p className="text-xs text-gray-400 mt-1">"Buen estado. Se retira por Córdoba Capital."</p>
+                                        <h5 className="font-bold text-lg mt-1 italic">Cama Ortopédica</h5>
+                                        <p className="text-xs text-gray-400 mt-1">"En perfecto estado. Incluye colchón antiescaras."</p>
                                     </div>
                                     <button onClick={() => window.location.href='mensajes.html'} className="bg-purple-600 hover:bg-purple-500 text-white px-6 py-3 rounded-2xl font-black text-xs w-full md:w-auto">📩 CONTACTAR</button>
                                 </div>
-                                <button onClick={goHome} className="text-xs text-gray-400 underline uppercase">Volver</button>
+                                <button onClick={goHome} className="text-xs text-gray-400 underline uppercase font-bold">Volver</button>
                             </div>
                         )}
 
-                        {/* ... (Las otras vistas: Logística, Login, Browse siguen igual) ... */}
+                        {/* VISTAS RESTANTES (LOGÍSTICA, LOGIN, BROWSE) */}
                         {view === 'logistica' && (
-                            <div className="glass p-8 rounded-3xl">
-                                <h3 className="text-2xl font-black mb-4 italic text-blue-400">🚚 LOGÍSTICA</h3>
-                                <p className="text-sm mb-4 italic">El traslado es un acuerdo privado. Pedí ayuda a Bomberos Voluntarios o Defensa Civil.</p>
-                                <button onClick={goHome} className="text-blue-400 font-black text-xs uppercase underline font-bold">← Volver</button>
+                            <div className="glass p-8 rounded-3xl max-w-4xl mx-auto">
+                                <h3 className="text-2xl font-black mb-4 italic text-blue-400 uppercase font-bold">🚚 LOGÍSTICA</h3>
+                                <p className="text-sm mb-4 italic font-medium leading-relaxed">El traslado es un acuerdo privado entre usuarios. Para equipos grandes, recomendamos consultar con Bomberos Voluntarios o Defensa Civil de su zona.</p>
+                                <button onClick={goHome} className="text-blue-400 font-black text-xs uppercase underline">← Volver</button>
                             </div>
                         )}
 
                         {view === 'login' && (
                             <div className="max-w-xs mx-auto glass p-10 rounded-3xl text-center">
                                 <h3 className="text-2xl font-black mb-6 italic uppercase font-bold">Unirme a la Red</h3>
-                                <form onSubmit={(e) => { e.preventDefault(); setUser({name: 'User'}); goHome(); }} className="space-y-4">
-                                    <input className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-sm" placeholder="Tu apodo" required />
-                                    <button className="w-full bg-white text-black font-black py-4 rounded-xl uppercase text-sm">Entrar</button>
+                                <form onSubmit={(e) => { e.preventDefault(); setUser({name: 'User'}); goHome(); }} className="space-y-4 font-bold">
+                                    <input className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-400" placeholder="Tu apodo" required />
+                                    <button className="w-full bg-white text-black font-black py-4 rounded-xl uppercase text-sm shadow-xl">Entrar</button>
                                 </form>
                             </div>
                         )}
 
                         {view === 'browse' && (
-                            <div className="animate-in fade-in duration-500">
+                            <div className="animate-in fade-in duration-500 max-w-4xl mx-auto">
                                 <h4 className="text-2xl font-black mb-6 italic uppercase text-blue-300">Medicamentos Disponibles</h4>
                                 <div className="glass p-6 rounded-3xl border border-white/10 mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
                                     <div>
                                         <span className="text-[10px] bg-blue-600 px-2 py-0.5 rounded font-black uppercase font-bold">Alto Costo</span>
-                                        <h5 className="font-bold text-lg mt-1 italic">Medicación Oncológica</h5>
-                                        <p className="text-xs text-gray-400 mt-1">"Caja sellada. Requiere receta médica."</p>
+                                        <h5 className="font-bold text-lg mt-1 italic">Insumo Oncológico</h5>
+                                        <p className="text-xs text-gray-400 mt-1">"Vencimiento en 2026. Requiere receta."</p>
                                     </div>
                                     <button onClick={() => window.location.href='mensajes.html'} className="bg-blue-600 text-white px-6 py-3 rounded-2xl font-black text-xs w-full md:w-auto">📩 ENVIAR MD</button>
                                 </div>
-                                <button onClick={goHome} className="text-xs text-gray-400 underline uppercase">Volver</button>
+                                <button onClick={goHome} className="text-xs text-gray-400 underline uppercase font-bold">Volver</button>
                             </div>
                         )}
                     </main>
 
                     {/* PATROCINADORES */}
-                    <div className="max-w-4xl mx-auto w-full px-6 mb-8">
+                    <div className="max-w-6xl mx-auto w-full px-6 mb-8">
                         <div className="glass p-4 rounded-2xl flex flex-wrap justify-around items-center gap-4 border-dashed border-white/20 opacity-50">
-                            <span className="text-[9px] font-black text-gray-500 uppercase">Patrocinan la Red:</span>
-                            <span className="font-black italic text-xs">AUSPICIANTE-AQUÍ</span>
+                            <span className="text-[9px] font-black text-gray-500 uppercase font-bold">Patrocinan la Red:</span>
+                            <span className="font-black italic text-xs">TU MARCA AQUÍ</span>
                         </div>
                     </div>
 
                     <footer className="glass p-6 text-[9px] text-gray-500 text-center uppercase tracking-widest font-bold">
-                        <p>BrinDarte - Red Solidaria Comunitaria. Prohibida la venta de medicamentos e insumos.</p>
+                        <p>BrinDarte - Red Solidaria Comunitaria. Prohibida la venta ilegal de medicamentos.</p>
                     </footer>
                 </div>
             );
