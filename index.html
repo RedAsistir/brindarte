@@ -14,16 +14,16 @@
             font-family: 'Inter', sans-serif;
             background-color: #000;
             color: #ffffff;
-            /* BUSCAMOS EL FONDO SIMPLIFICADO */
-            background-image: url('fondo.jpg');
+            /* NOMBRES EXACTOS DE TUS ARCHIVOS SUBIDOS */
+            background-image: url('fondo.png.jpg');
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
         }
         .glass-morphism {
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
     </style>
 </head>
@@ -39,19 +39,23 @@
 
             return (
                 <div className="min-h-screen flex flex-col">
+                    {/* NAVBAR */}
                     <nav className="glass-morphism sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
                         <div className="flex items-center gap-4 cursor-pointer" onClick={() => setView('home')}>
                             <div className="w-12 h-12 bg-white/10 rounded-full overflow-hidden border border-white/50">
-                                <img src="logo.jpg" alt="Logo" className="w-full h-full object-cover" />
+                                <img src="logo.brindarte.png.jpg" alt="Logo" className="w-full h-full object-cover" />
                             </div>
-                            <h1 className="text-2xl font-bold text-white">Brin<span className="text-blue-400">Darte</span></h1>
+                            <h1 className="text-2xl font-bold tracking-tighter text-white">Brin<span className="text-blue-400">Darte</span></h1>
                         </div>
-                        <div className="flex gap-6 items-center text-sm font-bold uppercase tracking-wider">
-                            <button onClick={() => setView('home')} className="hover:text-blue-300">Inicio</button>
+                        <div className="flex gap-6 items-center">
+                            <button onClick={() => setView('home')} className="hover:text-blue-300 font-bold uppercase text-xs">Inicio</button>
                             {user ? (
-                                <button onClick={() => window.location.href='mensajes.html'} className="text-blue-400 italic underline">Mis DMs</button>
+                                <>
+                                    <button onClick={() => setView('publish')} className="bg-white text-black px-4 py-2 rounded-full font-bold text-xs uppercase">Publicar</button>
+                                    <button onClick={() => window.location.href='mensajes.html'} className="text-blue-400 font-bold italic text-sm">Mis DMs</button>
+                                </>
                             ) : (
-                                <button onClick={() => setView('login')} className="border border-white px-4 py-1 rounded-full">Entrar</button>
+                                <button onClick={() => setView('login')} className="border border-white px-4 py-1 rounded-full text-xs font-bold uppercase">Ingresar</button>
                             )}
                         </div>
                     </nav>
@@ -59,46 +63,81 @@
                     <main className="max-w-4xl mx-auto px-6 pt-12 flex-1 w-full">
                         {view === 'home' && (
                             <div className="text-center py-10">
-                                <div className="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-2 border-white shadow-xl">
-                                    <img src="logo.jpg" alt="Logo" className="w-full h-full object-cover" />
+                                <div className="w-36 h-36 mx-auto mb-8 rounded-full overflow-hidden border-2 border-white shadow-2xl">
+                                    <img src="logo.brindarte.png.jpg" alt="Logo" className="w-full h-full object-cover" />
                                 </div>
-                                <h2 className="text-4xl font-black mb-8 italic drop-shadow-lg">Brindamos lo que el otro necesita.</h2>
+                                <h2 className="text-5xl font-black mb-8 italic drop-shadow-2xl">Brindamos lo que el otro necesita.</h2>
                                 
-                                <div className="bg-blue-900/40 border border-blue-400 p-6 rounded-2xl mb-10 text-left">
-                                    <h3 className="text-xl font-bold text-blue-300 mb-2">💊 Medicamentos de Alto Costo</h3>
-                                    <p className="text-sm text-blue-100 italic">Espacio dedicado para facilitar el acceso a tratamientos complejos de forma gratuita y solidaria.</p>
+                                <div className="bg-blue-900/40 border border-blue-400 p-6 rounded-3xl mb-10 text-left shadow-lg">
+                                    <h3 className="text-xl font-bold text-blue-300 mb-2">💊 Sector: Medicamentos de Alto Costo</h3>
+                                    <p className="text-sm text-blue-100 font-medium leading-relaxed italic">
+                                        Espacio habilitado para facilitar el contacto entre personas que disponen de tratamientos complejos y quienes los requieren con urgencia. 
+                                        La red se basa en la gratuidad absoluta.
+                                    </p>
                                 </div>
 
-                                <button onClick={() => setView('browse')} className="bg-white text-black px-12 py-4 rounded-full font-black text-xl hover:scale-105 transition-all">Explorar Red</button>
+                                <button onClick={() => setView('browse')} className="bg-white text-black px-12 py-4 rounded-full font-black text-xl hover:bg-blue-400 transition-all shadow-xl">EXPLORAR RED</button>
+                            </div>
+                        )}
+
+                        {view === 'publish' && (
+                            <div className="glass-morphism p-8 rounded-3xl border border-white/30 max-w-xl mx-auto">
+                                <h3 className="text-2xl font-black mb-4 italic text-blue-400 tracking-tighter uppercase">¿Qué vas a brindar?</h3>
+                                
+                                <div className="bg-red-900/20 border border-red-500/50 p-4 rounded-xl mb-6 text-[10px] text-red-200 uppercase font-bold tracking-tight">
+                                    ⚠️ IMPORTANTE - DONACIÓN DE MEDICAMENTOS:
+                                    <ul className="list-disc ml-4 mt-2 space-y-1">
+                                        <li>Controlá la fecha de vencimiento.</li>
+                                        <li>Prohibida la venta o intercambio por dinero.</li>
+                                        <li>La entrega es responsabilidad de las partes.</li>
+                                        <li>Se sugiere pedir receta médica para validar la necesidad.</li>
+                                    </ul>
+                                </div>
+
+                                <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); setView('browse'); }}>
+                                    <div>
+                                        <label className="block text-[10px] font-black mb-2 uppercase text-gray-500 tracking-widest">Insumo o Medicamento</label>
+                                        <input className="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-400" placeholder="Ej: Amoxicilina, Silla de ruedas..." required />
+                                    </div>
+                                    <div>
+                                        <label className="block text-[10px] font-black mb-2 uppercase text-gray-500 tracking-widest">Descripción y Estado</label>
+                                        <textarea rows="4" className="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-400" placeholder="Detalles, zona de entrega, vencimiento..." required></textarea>
+                                    </div>
+                                    <button type="submit" className="w-full bg-white text-black font-black py-4 rounded-2xl hover:bg-blue-400 transition-all uppercase tracking-tighter text-lg">Subir a la Red</button>
+                                </form>
                             </div>
                         )}
 
                         {view === 'browse' && (
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-20">
-                                <div className="glass-morphism p-6 rounded-3xl border border-white/20">
-                                    <span className="text-[10px] bg-blue-600 px-2 py-1 rounded font-black">ALTO COSTO</span>
-                                    <h4 className="text-2xl font-black mt-2">Medicación Oncológica</h4>
-                                    <p className="text-sm text-gray-300 my-4 leading-relaxed italic">"Caja cerrada. Vencimiento 2026. Se entrega con receta en mano."</p>
-                                    <button onClick={() => window.location.href='mensajes.html'} className="w-full bg-blue-600 text-white py-4 rounded-2xl font-black">ENVIAR DM</button>
+                                <div className="glass-morphism p-8 rounded-3xl border border-white/10 shadow-xl">
+                                    <div className="flex justify-between items-start mb-4">
+                                        <span className="text-[10px] bg-blue-600 px-2 py-1 rounded font-black tracking-tighter">ALTO COSTO</span>
+                                        <span className="text-[10px] text-gray-500 font-bold uppercase">Vence: 2026</span>
+                                    </div>
+                                    <h4 className="text-2xl font-black text-white italic mb-2 tracking-tighter">Medicación Oncológica</h4>
+                                    <p className="text-sm text-gray-400 mb-6 italic leading-relaxed">"Caja cerrada, conservada según protocolo. Se entrega únicamente con receta."</p>
+                                    <button onClick={() => window.location.href='mensajes.html'} className="w-full bg-blue-600 text-white py-4 rounded-2xl font-black hover:bg-blue-500 transition-all">📩 CONTACTAR POR MD</button>
                                 </div>
                             </div>
                         )}
 
                         {view === 'login' && (
-                            <div className="max-w-xs mx-auto glass-morphism p-10 rounded-3xl text-center">
-                                <h3 className="text-2xl font-black mb-6 italic">Unirme</h3>
-                                <form onSubmit={(e) => { e.preventDefault(); setUser({name: 'User'}); setView('home'); }} className="space-y-4">
-                                    <input className="w-full bg-white/5 border border-white/30 rounded-xl px-4 py-3" placeholder="Tu apodo" required />
-                                    <button className="w-full bg-white text-black font-black py-3 rounded-xl uppercase">Entrar</button>
+                            <div className="max-w-xs mx-auto glass-morphism p-10 rounded-3xl text-center shadow-2xl">
+                                <h3 className="text-2xl font-black mb-6 italic tracking-tighter uppercase">Unirme</h3>
+                                <form onSubmit={(e) => { e.preventDefault(); setUser({name: 'Usuario'}); setView('home'); }} className="space-y-4">
+                                    <input className="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3 focus:outline-none" placeholder="Tu apodo" required />
+                                    <button className="w-full bg-white text-black font-black py-4 rounded-xl uppercase tracking-widest">Entrar</button>
                                 </form>
                             </div>
                         )}
                     </main>
 
-                    <footer className="glass-morphism mt-12 p-8 text-[9px] text-gray-500 leading-tight">
+                    {/* FOOTER AVISO LEGAL */}
+                    <footer className="glass-morphism mt-12 p-8 text-[9px] text-gray-500 leading-tight border-t border-white/5">
                         <div className="max-w-4xl mx-auto uppercase tracking-tighter">
-                            <p className="font-bold text-gray-400 mb-2">Aviso Legal:</p>
-                            <p>BrinDarte es una plataforma de enlace solidario. No comercializamos medicamentos. La donación es responsabilidad de los usuarios. Se prohíbe la venta. Se recomienda supervisión profesional.</p>
+                            <p className="font-black text-gray-400 mb-2 underline">Aviso Legal y Responsabilidad:</p>
+                            <p>BrinDarte es un nexo solidario. No somos farmacia ni entidad sanitaria. La donación de medicamentos es responsabilidad de los usuarios. Prohibida la venta. Se recomienda supervisión profesional en todo tratamiento.</p>
                         </div>
                     </footer>
                 </div>
