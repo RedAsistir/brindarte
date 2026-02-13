@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrinDarte - Mis Mensajes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000;
+            color: #ffffff;
+            /* Usamos tu imagen de fondo real */
+            background-image: url('fondo.png.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        .glass-morphism {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .chat-bubble {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        
+        .sent {
+            background-color: #2563eb;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .received {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #e5e7eb;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden">
+
+    <nav class="glass-morphism px-6 py-4 flex justify-between items-center z-50">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.href='index.html'">
+            <div class="w-10 h-10 rounded-full overflow-hidden border border-white/30">
+                <img src="logo-brindarte.png.jpg" alt="Logo" class="w-full h-full object-cover">
+            </div>
+            <h1 class="text-xl font-bold tracking-tighter italic">Brin<span class="text-blue-400">Darte</span></h1>
+        </div>
+        <a href="index.html" class="text-sm font-bold text-gray-400 hover:text-white transition-colors">
+            ✕ Cerrar Chat
+        </a>
+    </nav>
+
+    <main class="flex-1 max-w-2xl mx-auto w-full flex flex-col overflow-hidden p-4">
+        
+        <div class="flex-1 glass-morphism rounded-3xl flex flex-col overflow-hidden shadow-2xl">
+            
+            <div class="p-4 border-b border-white/10 bg-black/40 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                    <span class="font-bold text-blue-300">Usuario Anónimo #4221</span>
+                </div>
+                <span class="text-[10px] text-gray-500 font-bold uppercase tracking-widest text-right">Identidad<br>Protegida</span>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-6 flex flex-col" id="chat-container">
+                <div class="text-center text-[10px] text-gray-600 my-4 uppercase tracking-tighter">Este chat es privado y seguro. No compartas datos personales.</div>
+                
+                <div class="chat-bubble received italic">
+                    Hola! Vi tu publicación. ¿Todavía tenés los medicamentos?
+                </div>
+                
+                <div class="chat-bubble sent font-medium">
+                    Hola! Sí, los tengo. ¿Tenés la receta médica para retirar?
+                </div>
+
+                <div class="chat-bubble received italic">
+                    Sí, la tengo conmigo. ¿Podemos coordinar para mañana?
+                </div>
+            </div>
+
+            <div class="p-4 bg-black/60 border-t border-white/10">
+                <div class="flex gap-2">
+                    <input type="text" placeholder="Escribí un mensaje seguro..." 
+                        class="flex-1 bg-white/5 border border-white/20 rounded-2xl px-5 py-3 text-white focus:outline-none focus:border-blue-500 transition-all placeholder:text-gray-600">
+                    <button class="bg-blue-600 hover:bg-blue-500 text-white px-6 rounded-2xl font-black transition-all shadow-lg active:scale-95">
+                        ENVIAR
+                    </button>
+                </div>
+                <p class="text-[9px] text-center text-gray-500 mt-3 italic">BrinDarte: La red donde nos cuidamos entre todos.</p>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
